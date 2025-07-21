@@ -13,6 +13,10 @@ config_version=5
 config/name="Vanishing Metronome"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
+[audio]
+
+buses/default_bus_layout=""
+
 [editor]
 
 version_control/plugin_name="GitPlugin"

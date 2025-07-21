@@ -11,5 +11,6 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_button_pressed() -> void:
+func _on_play_pause_button_pressed() -> void:
+	play()
 	pass # Replace with function body.

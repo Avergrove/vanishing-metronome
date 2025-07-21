@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dmf0d41tp1sx0"]
+[gd_scene load_steps=2 format=3 uid="uid://dmf0d41tp1sx0"]
+
+[ext_resource type="Script" uid="uid://dvus3p57sugmx" path="res://scripts/ui_controller.gd" id="1_l6cm7"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -21,11 +23,11 @@ text = "Vanishing Metronome"
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer"]
+[node name="StartLabel" type="Label" parent="VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Start"
 
-[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer"]
+[node name="PracticeButton" type="Button" parent="VBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Practice Mode"
 
@@ -37,3 +39,8 @@ layout_mode = 2
 
 [node name="Label5" type="Label" parent="VBoxContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="UIController" type="Node" parent="."]
+script = ExtResource("1_l6cm7")
+
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/PracticeButton" to="UIController" method="_on_practice_button_pressed"]

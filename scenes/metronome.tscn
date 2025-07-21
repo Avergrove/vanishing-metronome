@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://nnt2kwj2v0rw"]
+[gd_scene load_steps=3 format=3 uid="uid://nnt2kwj2v0rw"]
 
-[ext_resource type="Script" uid="uid://cai3ijbttsphs" path="res://scenes/audio_stream_player.gd" id="1_h5lc0"]
+[ext_resource type="Script" uid="uid://cai3ijbttsphs" path="res://scripts/audio_stream_player.gd" id="1_h5lc0"]
+[ext_resource type="AudioStream" uid="uid://lrby5cwbjyhs" path="res://sounds/metronome.mp3" id="1_kd2qf"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -33,6 +34,7 @@ text = "Play"
 [node name="Node" type="Node" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Node"]
+stream = ExtResource("1_kd2qf")
 script = ExtResource("1_h5lc0")
 
-[connection signal="pressed" from="VBoxContainer/BoxContainer2/Button" to="Node/AudioStreamPlayer" method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/BoxContainer2/Button" to="Node/AudioStreamPlayer" method="_on_play_pause_button_pressed"]
