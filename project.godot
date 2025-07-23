@@ -17,6 +17,11 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 
 buses/default_bus_layout=""
 
+[autoload]
+
+Constants="*res://scripts/autoload/constants.gd"
+Pubsub="*res://scripts/autoload/pubsub.gd"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"
