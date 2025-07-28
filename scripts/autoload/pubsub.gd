@@ -2,7 +2,7 @@ extends Node
 
 signal bpm_changed(new_bpm)
 signal beat_per_measure_changed(new_beat_per_measure)
-signal playback_state_changed(new_state)
+signal playback_state_changed(new_state, old_state)
 signal clock_elapsed_time_changed(elapsed_time, delta)
 signal orchestrator_measure_generated(new_measure)
 signal timing_cache_new_timing(new_second_per_beat, new_second_per_measure)

@@ -15,15 +15,6 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_bpm_spin_box_value_changed(value: float) -> void:
-	Pubsub.bpm_changed.emit(value)
-	pass # Replace with function body.
-
-
-func _on_play_button_pressed() -> void:
-	pass # Replace with function body.
-
-
 func _on_beat_per_measure_spin_box_value_changed(value: float) -> void:
 	Pubsub.beat_per_measure_changed.emit(value)
 	pass # Replace with function body.

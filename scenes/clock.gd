@@ -15,15 +15,20 @@ func _process(delta: float) -> void:
 		elapsed_time += delta
 		Pubsub.clock_elapsed_time_changed.emit(elapsed_time)
 
-func _on_playback_state_changed(state:Constants.PlaybackState) -> void:
-	if state == Constants.PlaybackState.PLAYING:
+func _on_playback_state_changed(new_state:Constants.PlaybackState, old_state:Constants.PlaybackState) -> void:
+	if new_state == Constants.PlaybackState.PLAYING:
 		_start_playback()
+	elif new_state == Constants.PlaybackState.PAUSED:
+		_pause_playback()
 	else:
 		_stop_playback()
 
 func _start_playback() -> void:
 	playback_state = Constants.PlaybackState.PLAYING
-	elapsed_time = 0
-	
+
+func _pause_playback() -> void:
+	playback_state = Constants.PlaybackState.PAUSED
+
 func _stop_playback() -> void:
 	playback_state = Constants.PlaybackState.STOPPED
+	elapsed_time = 0

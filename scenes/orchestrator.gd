@@ -1,9 +1,11 @@
 extends Node
 
+# The Orchestrator 
+
 # The Orchestrator is responsible for planning ahead the beats and dynamics to play. 
-# It generates measure by measure
+# It generates measure by measure, the moment playback starts!
 # Note that the orchestrator itself doesn't save the measures! These are published by signals and handled by subscriber nodes.
-var beats
+
 var is_playing = Constants.PlaybackState.STOPPED
 var beatmap = []
 var curr_measure
@@ -38,9 +40,11 @@ func _process(delta: float) -> void:
 			curr_measure_index += 1
 
 # When a play session ends, we need to generate a new set.
-func _on_playback_state_changed(new_playback_state: Constants.PlaybackState) -> void:
+func _on_playback_state_changed(new_playback_state: Constants.PlaybackState, old_playback_state: Constants.PlaybackState) -> void:
 	playback_state = new_playback_state
 	if new_playback_state == Constants.PlaybackState.STOPPED:
+		_reset()
+	elif new_playback_state == Constants.PlaybackState.PLAYING:
 		generate_initial_measures()
 
 func _on_elapsed_time_changed(new_elapsed_time: int) -> void:
@@ -63,7 +67,7 @@ func generate_initial_measures() -> void:
 	pass
 
 # Generates a measure and publishes it.
-# TODO: Implement proper generation. Currently returns a basic 4-crotchet measure.
+# TODO: Implement proper generation. Currently returns a don do-don do-don beat
 func generate_measure(measure: int) -> void:
 	var generated_measure = []
 	generated_measure.append({"measure": measure, "beat": 0})

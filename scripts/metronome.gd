@@ -30,8 +30,8 @@ func _process(delta: float) -> void:
 			curr_beat_timing_index += 1
 	pass
 
-func _on_playback_state_changed(state:Constants.PlaybackState) -> void:
-	playback_state = state
+func _on_playback_state_changed(new_state:Constants.PlaybackState, old_state:Constants.PlaybackState) -> void:
+	playback_state = new_state
 	if playback_state == Constants.PlaybackState.STOPPED:
 		_reset()
 
