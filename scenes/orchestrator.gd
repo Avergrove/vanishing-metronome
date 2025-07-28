@@ -70,10 +70,11 @@ func generate_initial_measures() -> void:
 # TODO: Implement proper generation. Currently returns a don do-don do-don beat
 func generate_measure(measure: int) -> void:
 	var generated_measure = []
-	generated_measure.append({"measure": measure, "beat": 0})
-	generated_measure.append({"measure": measure, "beat": 1})
-	generated_measure.append({"measure": measure, "beat": 2})
-	generated_measure.append({"measure": measure, "beat": 3})
+	generated_measure.append({"measure": measure, "beat": 0, "dynamics": Constants.Dynamics.LOUD})
+	generated_measure.append({"measure": measure, "beat": 1, "dynamics": Constants.Dynamics.NORMAL})
+	generated_measure.append({"measure": measure, "beat": 1.5, "dynamics": Constants.Dynamics.NORMAL})
+	generated_measure.append({"measure": measure, "beat": 2.5, "dynamics": Constants.Dynamics.NORMAL})
+	generated_measure.append({"measure": measure, "beat": 3, "dynamics": Constants.Dynamics.QUIET})
 	Pubsub.orchestrator_measure_generated.emit(generated_measure)
 
 func _reset() -> void:

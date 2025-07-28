@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://nnt2kwj2v0rw"]
+[gd_scene load_steps=11 format=3 uid="uid://nnt2kwj2v0rw"]
 
 [ext_resource type="Script" uid="uid://bv88iedxat237" path="res://scenes/play_pause_button.gd" id="1_gwyvd"]
 [ext_resource type="Script" uid="uid://cai3ijbttsphs" path="res://scripts/metronome.gd" id="1_h5lc0"]
 [ext_resource type="AudioStream" uid="uid://lrby5cwbjyhs" path="res://sounds/metronome.mp3" id="1_kd2qf"]
 [ext_resource type="Script" uid="uid://d10pytswaa1lf" path="res://scenes/bpm_spin_box.gd" id="2_5vbek"]
+[ext_resource type="Script" uid="uid://0uh3tosqgb60" path="res://scenes/stop_button.gd" id="2_mbk2f"]
 [ext_resource type="Script" uid="uid://6wsa0c6byoi5" path="res://scenes/orchestrator.gd" id="4_plct4"]
 [ext_resource type="Script" uid="uid://b46fdes7tcml8" path="res://scenes/clock.gd" id="5_phsm5"]
 [ext_resource type="Script" uid="uid://cjsefd6gw02us" path="res://scripts/timing_cache.gd" id="6_54fa4"]
@@ -49,7 +50,9 @@ script = ExtResource("1_gwyvd")
 
 [node name="StopButton" type="Button" parent="VBoxContainer/BoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+disabled = true
 text = "Stop"
+script = ExtResource("2_mbk2f")
 
 [node name="BPMSpinBox" type="SpinBox" parent="VBoxContainer/BoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2

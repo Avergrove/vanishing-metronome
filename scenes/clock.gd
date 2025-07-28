@@ -8,7 +8,6 @@ var playback_state = Constants.PlaybackState.STOPPED
 func _ready() -> void:
 	Pubsub.playback_state_changed.connect(_on_playback_state_changed)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if playback_state == Constants.PlaybackState.PLAYING:

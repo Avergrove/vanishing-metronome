@@ -2,16 +2,18 @@ extends AudioStreamPlayer
 
 # The Metronome reads in beatmap event changes from signals (Orchestrator) and plays sounds accordingly.
 
-var bpm                 = 60
-var beat_per_measure    = 4
+var sounds = {
+	"metronome_downbeat": preload("res://sounds/metronome.mp3"),
+	"metronome_upbeat": preload("res://sounds/Metronomes/Perc_Tongue_lo.wav")
+}
+
+var bpm                 
+var beat_per_measure    
 var playback_state      = Constants.PlaybackState.STOPPED
 var seconds_per_beat    
 var seconds_per_measure 
 var elapsed_time        = 0
 var timings             = []
-
-
-# Temporary variables
 var curr_beat_timing_index     = 0
 
 # Called when the node enters the scene tree for the first time.
@@ -26,7 +28,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if playback_state == Constants.PlaybackState.PLAYING:
 		if elapsed_time > timings[curr_beat_timing_index]["timing"]:
-			play()
+			if timings[curr_beat_timing_index]["beat_strength"] == Constants.BeatStrength.DOWNBEAT:
+				stream = sounds["metronome_downbeat"]
+				play()
+			else:
+				stream = sounds["metronome_upbeat"]
+				play()
 			curr_beat_timing_index += 1
 	pass
 
@@ -58,7 +65,8 @@ func _convert_to_timing(measure):
 	var new_timings = []
 	for beat in measure:
 		var beat_timing = beat["measure"] * seconds_per_measure + beat["beat"] * seconds_per_beat
-		new_timings.append({"timing": beat_timing})
+		var beat_strength = Constants.BeatStrength.DOWNBEAT if floor(beat["beat"]) == beat["beat"] else Constants.BeatStrength.UPBEAT
+		new_timings.append({"timing": beat_timing, "beat_strength": beat_strength})
 	return new_timings
 
 # Resets non-signal playback variables to initial state
