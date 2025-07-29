@@ -3,8 +3,8 @@ extends AudioStreamPlayer
 # The Metronome reads in beatmap event changes from signals (Orchestrator) and plays sounds accordingly.
 
 var sounds = {
-	"metronome_downbeat": preload("res://sounds/metronome.mp3"),
-	"metronome_upbeat": preload("res://sounds/Metronomes/Perc_Tongue_lo.wav")
+	"metronome_downbeat": preload("res://sounds/Metronomes/Perc_Can_hi.wav"),
+	"metronome_upbeat":   preload("res://sounds/Metronomes/Perc_Can_lo.wav")
 }
 
 var bpm                 
@@ -26,15 +26,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if playback_state == Constants.PlaybackState.PLAYING:
-		if elapsed_time > timings[curr_beat_timing_index]["timing"]:
-			if timings[curr_beat_timing_index]["beat_strength"] == Constants.BeatStrength.DOWNBEAT:
-				stream = sounds["metronome_downbeat"]
-				play()
-			else:
-				stream = sounds["metronome_upbeat"]
-				play()
-			curr_beat_timing_index += 1
 	pass
 
 func _on_playback_state_changed(new_state:Constants.PlaybackState, old_state:Constants.PlaybackState) -> void:
@@ -53,6 +44,11 @@ func _on_orchestrator_measure_generated(generated_measure: Array) -> void:
 
 func _on_clock_elapsed_time_changed(new_elapsed_time: float) -> void:
 	elapsed_time = new_elapsed_time
+	
+	if playback_state == Constants.PlaybackState.PLAYING:
+		if elapsed_time > timings[curr_beat_timing_index]["timing"]:
+			_play_sound(timings[curr_beat_timing_index])
+			curr_beat_timing_index += 1
 
 func _on_timing_cache_new_timing(new_seconds_per_beat, new_seconds_per_measure):
 	seconds_per_beat     = new_seconds_per_beat
@@ -68,6 +64,17 @@ func _convert_to_timing(measure):
 		var beat_strength = Constants.BeatStrength.DOWNBEAT if floor(beat["beat"]) == beat["beat"] else Constants.BeatStrength.UPBEAT
 		new_timings.append({"timing": beat_timing, "beat_strength": beat_strength})
 	return new_timings
+
+# Wrapper function around play to interpret the dynamic and type of beat to play
+func _play_sound(beat):
+	if elapsed_time > beat["timing"]:
+		if beat["beat_strength"] == Constants.BeatStrength.DOWNBEAT:
+			stream = sounds["metronome_downbeat"]
+			play()
+		else:
+			stream = sounds["metronome_upbeat"]
+			play()
+	pass
 
 # Resets non-signal playback variables to initial state
 func _reset():

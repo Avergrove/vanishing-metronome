@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bv88iedxat237" path="res://scenes/play_pause_button.gd" id="1_gwyvd"]
 [ext_resource type="Script" uid="uid://cai3ijbttsphs" path="res://scripts/metronome.gd" id="1_h5lc0"]
-[ext_resource type="AudioStream" uid="uid://lrby5cwbjyhs" path="res://sounds/metronome.mp3" id="1_kd2qf"]
+[ext_resource type="AudioStream" uid="uid://lrby5cwbjyhs" path="res://sounds/metronome-this_is_delayed.mp3" id="1_kd2qf"]
 [ext_resource type="Script" uid="uid://d10pytswaa1lf" path="res://scenes/bpm_spin_box.gd" id="2_5vbek"]
 [ext_resource type="Script" uid="uid://0uh3tosqgb60" path="res://scenes/stop_button.gd" id="2_mbk2f"]
 [ext_resource type="Script" uid="uid://6wsa0c6byoi5" path="res://scenes/orchestrator.gd" id="4_plct4"]

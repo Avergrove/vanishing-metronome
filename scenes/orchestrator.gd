@@ -12,7 +12,6 @@ var curr_measure
 var elapsed_time
 var beat_per_minute
 var beat_per_measure
-var playback_state
 
 # Dictates how many measures ahead to generate for
 var generate_ahead = 2
@@ -28,27 +27,19 @@ func _ready() -> void:
 	Pubsub.timing_cache_new_timing.connect(_on_timing_cache_new_timing)
 	
 	_reset()
-	get_tree().create_timer(0.15).timeout.connect(generate_initial_measures)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-# A new measure is generated ahead of time when entering 2 neasures within the end.
-func _process(delta: float) -> void:
-	if playback_state == Constants.PlaybackState.PLAYING:
-		if elapsed_time > (curr_measure_index) * seconds_per_measure:
-			generate_measure(curr_measure_index + generate_ahead)
-			curr_measure_index += 1
 
 # When a play session ends, we need to generate a new set.
 func _on_playback_state_changed(new_playback_state: Constants.PlaybackState, old_playback_state: Constants.PlaybackState) -> void:
-	playback_state = new_playback_state
 	if new_playback_state == Constants.PlaybackState.STOPPED:
 		_reset()
-	elif new_playback_state == Constants.PlaybackState.PLAYING:
+	elif new_playback_state == Constants.PlaybackState.PLAYING && old_playback_state == Constants.PlaybackState.STOPPED:
 		generate_initial_measures()
 
 func _on_elapsed_time_changed(new_elapsed_time: int) -> void:
 	elapsed_time = new_elapsed_time
+	if elapsed_time > (curr_measure_index) * seconds_per_measure:
+		generate_measure(curr_measure_index + generate_ahead)
+		curr_measure_index += 1
 
 func _on_beat_per_minute_changed(new_beat_per_minute: int) -> void:
 	beat_per_minute = new_beat_per_minute
